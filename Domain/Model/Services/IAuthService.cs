@@ -6,6 +6,6 @@ namespace TalabatApi.Domain.Model.Services
     public interface IAuthService
     {
         Task<Response<User>> RegisterUser(User user, string Password);
-        Task<Response<User>> LoginUser(User user);
+        Task<Response<User>> LoginUser(User user, string password);
     }
 }

@@ -25,10 +25,6 @@ namespace TalabatApi.Persistence.Repositories
             return existingUser;
         }
 
-        public Task<User> LoginUser(User user)
-        {
-            throw new System.NotImplementedException();
-        }
 
         public async Task RegisterUser(User user)
         {

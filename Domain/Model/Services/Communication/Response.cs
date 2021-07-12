@@ -12,10 +12,10 @@ namespace TalabatApi.Domain.Model.Services.Communication
         /// <summary>
         /// Creates a success response.
         /// </summary>
-        /// <param name="T"> savedItem. </param> 
+        /// <param name="T"> Item. </param> 
         /// <returns> Response </returns>
 
-        public Response(T Data) : this(true, "", Data)
+        public Response(T Data, string Message) : this(true, Message, Data)
         {}
 
         /// <summary>

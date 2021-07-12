@@ -8,6 +8,5 @@ namespace TalabatApi.Domain.Model.Repositories
         Task<User> GetUserById(int id);
         Task<User> GetUserByName(string name);
         Task RegisterUser(User user);
-        Task<User> LoginUser(User user);
     }
 }

@@ -5,6 +5,7 @@ using TalabatApi.Domain.Model;
 using TalabatApi.Domain.Model.Dtos;
 using TalabatApi.Domain.Model.Services;
 using TalabatApi.Domain.Model.Services.Communication;
+using TalabatApi.Extensions;
 using TalabatApi.Services;
 
 namespace TalabatApi.Controllers
@@ -21,16 +22,34 @@ namespace TalabatApi.Controllers
             this._service = service;
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(AuthenticateUserDto userDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
             var result = await _service
-                    .RegisterUser(new User{Name = userDto.Name}, userDto.password);
+                    .RegisterUser(new User { Name = userDto.Name }, userDto.password);
             if (!result.Success)
             {
                 return BadRequest(result.Message);
             }
-            
+
+            return Ok(result);
+        }
+
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(AuthenticateUserDto userDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var result = await _service.LoginUser(new User { Name = userDto.Name }, userDto.password);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
             return Ok(result);
         }
     }

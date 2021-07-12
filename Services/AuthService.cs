@@ -16,9 +16,34 @@ namespace TalabatApi.Services
             this._repository = repository;
 
         }
-        public Task<Response<User>> LoginUser(User user)
+
+        public async Task<Response<User>> LoginUser(User user, string password)
         {
-            throw new System.NotImplementedException();
+            var loggedInUser = await _repository.GetUserByName(user.Name);
+
+            if (loggedInUser == null)
+            {
+                return new Response<User>("User does not Exist");
+            }
+
+            user = loggedInUser;
+            
+            try
+            {
+                if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                {
+                    return new Response<User>("Username or Password does not exist");
+                }
+                else return new Response<User>(user, "you logged in successfully");
+
+            }
+            catch (System.Exception ex)
+            {
+
+                return new Response<User>(ex.Message);
+            }
+
+
         }
 
         public async Task<Response<User>> RegisterUser(User user, string Password)
@@ -39,11 +64,11 @@ namespace TalabatApi.Services
                 await _repository.RegisterUser(user);
                 await _workUnit.SaveAsync();
 
-                return new Response<User>(user);
+                return new Response<User>(user, "");
             }
             catch (System.Exception ex)
             {
-                
+
                 return new Response<User>(ex.Message);
             }
         }
