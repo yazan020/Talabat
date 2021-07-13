@@ -7,10 +7,12 @@ namespace TalabatApi.Persistence.Context
     {
         public DataContext(DbContextOptions options) : base(options)
         {
-            
         }
+
         public DbSet<User> Users { get; set; }
         public DbSet<UserData> UsersData { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Restuarant> Restuarants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,5 +21,6 @@ namespace TalabatApi.Persistence.Context
                 .WithOne(u => u.User)
                 .HasForeignKey<UserData>(u => u.UserId);
         }
+
     }
 }

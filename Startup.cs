@@ -37,9 +37,15 @@ namespace TalabatApi
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IAuthService, AuthService>();
+
             services.AddScoped<IAuthRepo, AuthRepository>();
+            services.AddScoped<IAuthService, AuthService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
+            services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

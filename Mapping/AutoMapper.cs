@@ -10,6 +10,7 @@ namespace TalabatApi.Mapper
         public AutoMapper()
         {
             CreateMap<AuthenticateUserDto, User>();
+            CreateMap<ProductDto, Product>(); 
         }
         
     }
