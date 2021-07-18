@@ -56,7 +56,7 @@ namespace TalabatApi.Controllers
 
             return Ok(response);
         }
-
+        //     Server=192.168.8.16,3306; Database=Talabat; User Id=test; Password=DataTest
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(ProductDto productDto)
         {
@@ -68,7 +68,7 @@ namespace TalabatApi.Controllers
 
             if (!response.Success)
             {
-                return BadRequest(response.Message);
+                return BadRequest(response.Message);    
             }
 
             return Ok(response);

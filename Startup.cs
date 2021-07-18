@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using MySql.Data.EntityFrameworkCore.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +11,7 @@ using TalabatApi.Domain.Model.Services;
 using TalabatApi.Persistence.Context;
 using TalabatApi.Persistence.Repositories;
 using TalabatApi.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace TalabatApi
 {
@@ -34,7 +35,7 @@ namespace TalabatApi
             });
 
             services.AddDbContext<DataContext>(options => options
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                .UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(Startup));
 
