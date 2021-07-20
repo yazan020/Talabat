@@ -24,16 +24,20 @@ namespace TalabatApi.Persistence.Repositories
             await _context.Products.AddAsync(product);
             return await GetProducts();
         }
-        public Task<Product> UpdateProduct(Product product)
+
+        public void UpdateProduct(Product product)
         {
-            throw new System.NotImplementedException();
-        }
-        public Task<IEnumerable<Product>> DeleteProduct(int productId)
-        {
-            throw new System.NotImplementedException();
+            _context.Products.Update(product);
         }
 
+        public void DeleteProduct(Product product)
+        {
+            _context.Products.Remove(product);
+        }
 
-
+        public async Task<Product> ProductExist(int id)
+        {
+            return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }

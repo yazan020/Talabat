@@ -8,7 +8,7 @@ namespace TalabatApi.Domain.Model.Services
     {
         Task<Response<IEnumerable<Product>>> GetProducts();
         Task<Response<IEnumerable<Product>>> SaveProduct(Product product);
-        Task<Response<Product>> UpdateProduct(Product product);
+        Task<Response<Product>> UpdateProduct(int id, Product product);
         Task<Response<IEnumerable<Product>>> DeleteProduct(int productId);
     }
 }

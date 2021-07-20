@@ -58,21 +58,35 @@ namespace TalabatApi.Controllers
         }
         //     Server=192.168.8.16,3306; Database=Talabat; User Id=test; Password=DataTest
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct(ProductDto productDto)
+        public async Task<IActionResult> UpdateProduct(int id, ProductDto productDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessage());
 
             var product = _mapper.Map<ProductDto, Product>(productDto);
 
-            var response = await _service.SaveProduct(product);
+            var response = await _service.UpdateProduct(id, product);
 
             if (!response.Success)
             {
-                return BadRequest(response.Message);    
+                return BadRequest(response.Message);
             }
 
             return Ok(response);
+        }
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessage());
+
+            var response = await _service.DeleteProduct(id);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok(response);
         }
     }
 }

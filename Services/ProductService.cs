@@ -45,14 +45,57 @@ namespace TalabatApi.Services
             return new Response<IEnumerable<Product>>(Savedproduct, "Product Saved successfully");
         }
 
-        public Task<Response<Product>> UpdateProduct(Product product)
+        public async Task<Response<Product>> UpdateProduct(int id, Product product)
         {
-            throw new System.NotImplementedException();
+            var existingProduct = await _repository.ProductExist(id);
+
+            if (existingProduct == null)
+            {
+                return new Response<Product>("Please provide the product info");
+            }
+
+            existingProduct.Name = product.Name;
+            existingProduct.Price = product.Price;
+            existingProduct.Description = product.Description;
+
+
+            try
+            {
+                _repository.UpdateProduct(existingProduct);
+                await _workUnit.SaveAsync();
+
+                return new Response<Product>(existingProduct, "product updated successfully");
+            }
+            catch (System.Exception ex)
+            {
+                return new Response<Product>($"An error occurred when updating the product ${ex.Message}");
+            }
+
         }
 
-        public Task<Response<IEnumerable<Product>>> DeleteProduct(int productId)
+        public async Task<Response<IEnumerable<Product>>> DeleteProduct(int productId)
         {
-            throw new System.NotImplementedException();
+            var deletedProduct = await _repository.ProductExist(productId);
+
+            if (deletedProduct is null)
+            {
+                return new Response<IEnumerable<Product>>("Product was not found");
+            }
+
+            try
+            {
+                _repository.DeleteProduct(deletedProduct);
+
+                await _workUnit.SaveAsync();
+
+                return new Response<IEnumerable<Product>>(await _repository.GetProducts(), "product deleted successfully");
+
+            }
+            catch (System.Exception ex)
+            {
+                return new Response<IEnumerable<Product>>($"An error occurred when deleting the product ${ex.Message}");
+            }
+
         }
     }
 }
