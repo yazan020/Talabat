@@ -26,13 +26,13 @@ namespace TalabatApi.Persistence.Repositories
         {
             await _context.Restuarants.AddAsync(restuarant);
         }
-        public Task UpdateRest(Restuarant restuarant)
+        public void UpdateRest(Restuarant restuarant)
         {
-            throw new System.NotImplementedException();
+            _context.Restuarants.Update(restuarant);
         }
-        public Task DeleteRest(int id)
+        public void DeleteRest(Restuarant restuarant)
         {
-            throw new System.NotImplementedException();
+            _context.Restuarants.Remove(restuarant);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace TalabatApi.Domain.Model.Repositories
         Task<Restuarant> GetRestById(int id);
         Task<IEnumerable<Restuarant>> GetRest();
         Task SaveRest(Restuarant restuarant);
-        Task UpdateRest(Restuarant restuarant);
-        Task DeleteRest(int id);
+        void UpdateRest(Restuarant restuarant);
+        void DeleteRest(Restuarant restuarant);
     }
 }

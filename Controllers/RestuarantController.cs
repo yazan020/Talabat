@@ -48,7 +48,39 @@ namespace TalabatApi.Controllers
 
             if (!response.Success)
             {
-                return BadRequest(response.Message);
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRest(int Id, UpdateRestDto updateDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessage());
+
+            var restUpdate = _mapper.Map<UpdateRestDto, Restuarant>(updateDto);
+
+            var response = await _service.UpdateRest(Id, restUpdate);
+
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRest(int Id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessage());
+
+            var response = await _service.DeleteRest(Id);
+
+            if (!response.Success)
+            {
+                return BadRequest(response);
             }
 
             return Ok(response);

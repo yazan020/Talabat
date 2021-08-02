@@ -63,14 +63,58 @@ namespace TalabatApi.Services
             }
         }
 
-        public Task<Response<Restuarant>> UpdateRest(Restuarant restuarant)
+        public async Task<Response<Restuarant>> UpdateRest(int id, Restuarant restuarant)
         {
-            throw new System.NotImplementedException();
+            if (restuarant is null)
+            {
+                return new Response<Restuarant>("Not Found");
+            }
+
+            var existingRest = await _repository.GetRestById(id);
+
+            if (existingRest is null)
+            {
+                return new Response<Restuarant>("404 Not Found");
+            }
+
+            existingRest.Name = restuarant.Name;
+            existingRest.Offer = restuarant.Offer;
+            existingRest.DeliveryPrice = restuarant.DeliveryPrice;
+
+            try
+            {
+                _repository.UpdateRest(existingRest);
+                await _workUnit.SaveAsync();
+
+                return new Response<Restuarant>(restuarant, "rest updated successfully");
+            }
+
+            catch (System.Exception ex)
+            {
+                return new Response<Restuarant>(ex.Message);
+            }
         }
 
-        public Task<Response<Restuarant>> DeleteRest(Restuarant restuarant)
+        public async Task<Response<IEnumerable<Restuarant>>> DeleteRest(int Id)
         {
-            throw new System.NotImplementedException();
+            var deletedRest = await _repository.GetRestById(Id);
+
+            if (deletedRest is null)
+            {
+                return new Response<IEnumerable<Restuarant>>("You are trying to delete an unexciting restaurant!");
+            }
+
+            try
+            {
+                _repository.DeleteRest(deletedRest);
+                await _workUnit.SaveAsync();
+
+                return new Response<IEnumerable<Restuarant>>(await _repository.GetRest(), "Restaurant deleted Successfully");
+            }
+            catch (System.Exception ex)
+            {
+                return new Response<IEnumerable<Restuarant>>(ex.Message);
+            }
         }
     }
 }

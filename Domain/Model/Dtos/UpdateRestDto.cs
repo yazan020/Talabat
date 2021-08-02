@@ -1,7 +1,6 @@
-
 namespace TalabatApi.Domain.Model.Dtos
 {
-    public class SaveRestDto
+    public class UpdateRestDto
     {
         public string Name { get; set; }
         public float DeliveryPrice { get; set; }
