@@ -12,6 +12,7 @@ using TalabatApi.Persistence.Context;
 using TalabatApi.Persistence.Repositories;
 using TalabatApi.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace TalabatApi
 {
@@ -37,6 +38,12 @@ namespace TalabatApi
             services.AddDbContext<DataContext>(options => options
                 .UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<IAuthRepo, AuthRepository>();
@@ -44,9 +51,11 @@ namespace TalabatApi
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IProductService, ProductService>();
+
+            services.AddScoped<IRestaurantRepo, RestaurantRepo>();
+            services.AddScoped<IRestaurantService, RestaurantService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

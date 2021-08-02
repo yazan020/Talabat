@@ -9,4 +9,4 @@ namespace TalabatApi.Domain.Model.Dtos
         public string RestuarantName { get; set; }
         public int RestuarantId { get; set; }
     }
-}
+} 
