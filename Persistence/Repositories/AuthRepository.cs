@@ -28,9 +28,23 @@ namespace TalabatApi.Persistence.Repositories
 
         public async Task RegisterUser(User user)
         {
-
             await _context.Users.AddAsync(user);
-            
+        }
+
+
+        public async Task AddUserInfo(UserData data)
+        {
+            await _context.UsersData.AddAsync(data);
+        }
+
+        public void UpdateUserInfo(UserData data)
+        {
+            _context.UsersData.Update(data);
+        }
+
+        public void DeleteUserInfo(UserData data)
+        {
+            _context.UsersData.Remove(data);
         }
     }
 }

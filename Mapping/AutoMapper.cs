@@ -14,6 +14,8 @@ namespace TalabatApi.Mapper
 
             CreateMap<SaveRestDto, Restuarant>();
             CreateMap<UpdateRestDto, Restuarant>();
+
+            CreateMap<SaveUserData, UserData>();
         }
         
     }

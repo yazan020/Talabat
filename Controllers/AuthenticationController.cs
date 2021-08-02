@@ -52,5 +52,22 @@ namespace TalabatApi.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUserInfo(SaveUserData userDataDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var userData = _mapper.Map<SaveUserData, UserData>(userDataDto);
+
+            var result = await _service.AddUserDataInfo(userData);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
     }
 }

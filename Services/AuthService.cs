@@ -27,7 +27,7 @@ namespace TalabatApi.Services
             }
 
             user = loggedInUser;
-            
+             
             try
             {
                 if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
@@ -73,6 +73,36 @@ namespace TalabatApi.Services
             }
         }
 
+        public async Task<Response<UserData>> AddUserDataInfo(UserData userData)
+        {
+            if (userData == null)
+            {
+                return new Response<UserData>("Enter your Data");
+            }
+
+            try
+            {
+                await _repository.AddUserInfo(userData);
+                await _workUnit.SaveAsync();
+
+                return new Response<UserData>(userData, "User data is saved successfully");
+            }
+            catch (System.Exception ex)
+            {
+                return new Response<UserData>(ex.Message);
+            }
+        }
+
+        public Task<Response<UserData>> UpdateUserDataInfo(UserData userData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Response<UserData>> DeleteUserDataInfo(UserData userData)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         /////////////////////////////// password encryption ///////////////////////////////
 
@@ -99,5 +129,7 @@ namespace TalabatApi.Services
                 return true;
             }
         }
+
+        
     }
 }

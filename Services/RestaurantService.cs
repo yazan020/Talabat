@@ -103,7 +103,7 @@ namespace TalabatApi.Services
             {
                 return new Response<IEnumerable<Restuarant>>("You are trying to delete an unexciting restaurant!");
             }
-
+    
             try
             {
                 _repository.DeleteRest(deletedRest);
