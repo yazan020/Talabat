@@ -53,7 +53,7 @@ namespace TalabatApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("userInfo")]
         public async Task<IActionResult> UpdateUserInfo(SaveUserData userDataDto)
         {
             if (!ModelState.IsValid)
