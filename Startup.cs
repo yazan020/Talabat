@@ -56,6 +56,9 @@ namespace TalabatApi
 
             services.AddScoped<IRestaurantRepo, RestaurantRepo>();
             services.AddScoped<IRestaurantService, RestaurantService>();
+
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
