@@ -73,6 +73,17 @@ namespace TalabatApi.Services
             }
         }
 
+        public async Task<Response<User>> SeeUserData(int userId)
+        {
+            var existingUser = await _repository.GetUserById(userId);
+            if (existingUser is null)
+            {
+                return new Response<User>("User Not Found 404");
+            }
+
+            return new Response<User>(existingUser, "Success");
+        }
+
         public async Task<Response<UserData>> AddUserDataInfo(UserData userData)
         {
             if (userData == null)
@@ -114,7 +125,7 @@ namespace TalabatApi.Services
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-
+ 
         public bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
@@ -129,7 +140,5 @@ namespace TalabatApi.Services
                 return true;
             }
         }
-
-        
     }
 }

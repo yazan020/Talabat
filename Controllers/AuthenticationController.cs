@@ -22,6 +22,23 @@ namespace TalabatApi.Controllers
             this._service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Register(int UserId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessage());
+
+            var result = await _service
+                    .SeeUserData(UserId);
+                    
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> Register(AuthenticateUserDto userDto)
         {

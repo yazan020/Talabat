@@ -15,22 +15,18 @@ namespace TalabatApi.Persistence.Repositories
 
         public async Task<User> GetUserById(int id)
         {
-            var existingUser = await _context.Users.FindAsync(id);
-            return existingUser;
+            return await _context.Users.Include(u => u.UserData).FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> GetUserByName(string name)
         {
-            var existingUser = await _context.Users.FirstOrDefaultAsync(a => a.Name == name);
-            return existingUser;
+            return await _context.Users.FirstOrDefaultAsync(a => a.Name == name);
         }
-
 
         public async Task RegisterUser(User user)
         {
             await _context.Users.AddAsync(user);
         }
-
 
         public async Task AddUserInfo(UserData data)
         {
