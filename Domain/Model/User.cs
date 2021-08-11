@@ -13,7 +13,6 @@ namespace TalabatApi.Domain.Model
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
 
-        public int UserDataId { get; set; }
         public UserData UserData { get; set; }
     }
 }

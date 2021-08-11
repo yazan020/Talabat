@@ -2,40 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TalabatApi.Persistence.Context;
 
 namespace TalabatApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210811105237_DropUserDataId")]
+    partial class DropUserDataId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("TalabatApi.Domain.Model.Driver", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<long>("DriverLocation")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("DriverName")
-                        .HasColumnType("text");
-
-                    b.Property<int>("OrdersDelivered")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Drivers");
-                });
 
             modelBuilder.Entity("TalabatApi.Domain.Model.Order", b =>
                 {

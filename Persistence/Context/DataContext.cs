@@ -14,6 +14,7 @@ namespace TalabatApi.Persistence.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Restuarant> Restuarants { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
