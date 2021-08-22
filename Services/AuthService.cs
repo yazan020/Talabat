@@ -1,8 +1,11 @@
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using TalabatApi.Domain.Model;
+using TalabatApi.Domain.Model.Dtos;
 using TalabatApi.Domain.Model.Repositories;
 using TalabatApi.Domain.Model.Services;
 using TalabatApi.Domain.Model.Services.Communication;
+using TalabatApi.NetworkRequests;
 
 namespace TalabatApi.Services
 {
@@ -53,10 +56,8 @@ namespace TalabatApi.Services
                 return new Response<User>("User does exist");
             }
 
-
             try
             {
-
                 CreatePasswordHash(Password, out byte[] passwordHash, out byte[] passwordSalt);
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
@@ -84,12 +85,19 @@ namespace TalabatApi.Services
             return new Response<User>(existingUser, "Success");
         }
 
-        public async Task<Response<UserData>> AddUserDataInfo(UserData userData)
+        public async Task<Response<UserData>> AddUserDataInfo(UserData userDataDto)
         {
-            if (userData == null)
-            {
-                return new Response<UserData>("Enter your Data");
-            }
+
+            var existingUser = await _repository.GetUserById(userDataDto.UserId);
+            if (existingUser is null)
+                return new Response<UserData>("User Not Found 404");
+            
+
+            var clientAddress = new GetClientAddress();
+            var userLocation = await clientAddress.GetGeoInfo();
+
+            UserData userData = JsonConvert.DeserializeObject<UserData>(userLocation);
+            userData.UserId = userDataDto.UserId;
 
             try
             {

@@ -15,7 +15,7 @@ namespace TalabatApi.Persistence.Repositories
 
         public async Task<User> GetUserById(int id)
         {
-            return await _context.Users.Include(u => u.UserData).FirstOrDefaultAsync(u => u.Id == id);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> GetUserByName(string name)

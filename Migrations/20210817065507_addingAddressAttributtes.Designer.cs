@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TalabatApi.Persistence.Context;
 
 namespace TalabatApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210817065507_addingAddressAttributtes")]
+    partial class addingAddressAttributtes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,6 +158,9 @@ namespace TalabatApi.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("RegionName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserAddress")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")

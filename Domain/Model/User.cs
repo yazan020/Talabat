@@ -15,4 +15,4 @@ namespace TalabatApi.Domain.Model
 
         public UserData UserData { get; set; }
     }
-}
+} 

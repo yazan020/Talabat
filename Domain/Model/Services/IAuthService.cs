@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using TalabatApi.Domain.Model.Dtos;
 using TalabatApi.Domain.Model.Services.Communication;
 
 namespace TalabatApi.Domain.Model.Services
